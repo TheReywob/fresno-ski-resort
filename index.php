@@ -32,6 +32,8 @@
   </nav>
   <!-- End Navbar -->
 
+  <!-- Begin Page Content -->
+  <div class="container">
   <h1>Rentals</h1>
 
   <!-- Begin Project Cards -->
@@ -39,43 +41,102 @@
     <!--  <div class="container"> -->
         <hr>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <div class="col">
-            <div class="card shadow-sm">
-              <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-              <div class="card-body">
-                <h2>Item 1</h2>
-                <p class="card-text">A short description about the product.<br>Make, model, color, size, etc.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <a href="#" class="btn btn-sm btn-outline-primary">Reserve</a>
-                    <a href="https://cooktopia.reywob.net" target="_blank" class="btn btn-sm btn-outline-secondary">View</a>
-                  </div>
-                  <small class="text-muted">Available</small>
-                </div>
-              </div>
-            </div>
-          </div>
+          <?php
+            // Open connection to the database
+            require "connect.php";
 
-          <div class="col">
-            <div class="card shadow-sm">
-              <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-              <div class="card-body">
-                <h2>Item 2</h2>
-                <p class="card-text">A short description about the product.<br>Make, model, color, size, etc.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <a href="#" class="btn btn-sm btn-outline-primary">Reserve</a>
-                    <a href="https://cooktopia.reywob.net" target="_blank" class="btn btn-sm btn-outline-secondary">View</a>
-                  </div>
-                  <small class="text-muted">Reserved until 12/31/2022</small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            // Fetch all rentable items
+            $sql = "SELECT * FROM rentable_items INNER JOIN item_types ON rentable_items.itemtype_id=item_types.itemtype_id LEFT JOIN rental ON rentable_items.rentable_item_id=rental.rentable_item_id ORDER BY is_rented_out, item_brand, item_model";
+            $result = $connect->query($sql);
+            while ($row = $result->fetch_assoc()){
+              $item_id = $row['rentable_item_id'];
+              $image = "";
+
+              // Create product card
+              echo '<div class="col">';
+              echo '<div class="card shadow-sm">';
+              // Product image
+              switch ($row['item_type']) {
+                case "Skis":
+                  $image = "skiing.jpg";
+                  break;
+                case "Snowboard":
+                  $image = "snowboarding.jpg";
+                  break;
+                case "Poles":
+                  $image = "ski_poles.jpg";
+                  break;
+                case "Boots":
+                  $image = "ski_boots.jpg";
+                  break;
+                case "Helmet":
+                  $image = "helmets.jpg";
+                  break;
+                case "Goggles":
+                  $image = "goggles.jpg";
+                  break;
+              }
+              echo '<img src="images/'.$image.'" alt="'.$row['item_type'].'" width="100%" height="225">';
+              // Card body
+              echo '<div class="card-body">';
+              // Product name
+              echo '<h2>'.$row['item_brand'].' '.$row['item_model'].'</h2>';
+              // Product specifications
+              echo '<p class="card-text">Type: '.$row['item_type'].'<br>Color: '.$row['item_color'].'<br>Size: '.$row['item_size'].'</p>';
+              // Card buttons
+              echo '<div class="d-flex justify-content-between align-items-center">';
+              echo '<div class="btn-group">';
+              echo '<a href="#" class="btn btn-sm btn-outline-primary">View</a>';
+              echo '</div>';
+
+              // Product availability
+              if ($row['is_rented_out'] == 0) {
+                $availability = "Available";
+                $text_type = "text-muted";
+              }
+              else if ($row['is_rented_out'] == 1) {
+                // Check if todays date is between the rental period
+                $today = date('Y-m-d');
+                $rent_start_date = $row['rental_startdate'];
+                $rent_end_date = $row['rental_enddate'];
+                if (!($today > $rent_start_date && $today < $rent_end_date)) {
+                  // If today is NOT inside the rental period
+                  // Change is_rented_out to false in DB table
+                  $update_sql = "UPDATE rentable_items SET is_rented_out=0 WHERE rentable_item_id=$item_id";
+                  // Verify update was successful
+                  if (!($connect->query($update_sql) === TRUE)) {
+                    echo "Error: " . $update_sql . "<br>" . $connect->error;
+                  }
+                  // Delete rental record
+                  $delete_sql = "DELETE FROM rental WHERE rentable_item_id=$item_id";
+                  // Verify deletion was successful
+                  if (!($connect->query($delete_sql) === TRUE)) {
+                    echo "Error: " . $delete_sql . "<br>" . $connect->error;
+                  }
+                  // Set product availability to Available
+                  $availability = "Available";
+                  $text_type = "text-muted";
+                }
+                else {
+                  // If today is inside the rental period
+                  $availability = "Reserved until ".date("m/d/Y", strtotime($rent_end_date));
+                  $text_type = "text-danger";
+                }
+              }
+
+              echo '<small class="'.$text_type.'">'.$availability.'</small>';
+              // Close product card
+              echo '</div>';
+              echo '</div>';
+              echo '</div>';
+              echo '</div>';
+            }
+
+          ?>
+
   <!-- End Project Cards -->
-
+  </div>
+  <!-- End Page Content -->
 
 
 
