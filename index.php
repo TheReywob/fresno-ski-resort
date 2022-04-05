@@ -60,7 +60,7 @@
                 case "Skis":
                   $image = "skiing.jpg";
                   break;
-                case "Snowboard":
+                case "Snowboards":
                   $image = "snowboarding.jpg";
                   break;
                 case "Poles":
@@ -69,7 +69,7 @@
                 case "Boots":
                   $image = "ski_boots.jpg";
                   break;
-                case "Helmet":
+                case "Helmets":
                   $image = "helmets.jpg";
                   break;
                 case "Goggles":
