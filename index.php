@@ -69,7 +69,7 @@
                 case "Boots":
                   $image = "ski_boots.jpg";
                   break;
-                case "Helmet":
+                case "Helmets":
                   $image = "helmets.jpg";
                   break;
                 case "Goggles":
