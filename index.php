@@ -19,10 +19,10 @@
     <div class="collapse navbar-collapse" id="navbarsExample02">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link active" href="#">Rentals</a>
+          <a class="nav-link active" href="index.php">Rentals</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Lessons</a>
+          <a class="nav-link" href="lessons.php">Lessons</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Admin Portal</a>
@@ -92,7 +92,7 @@
               // Product availability
               if ($row['is_rented_out'] == 0) {
                 $availability = "Available";
-                $text_type = "text-muted";
+                $text_type = "text-success";
               }
               else if ($row['is_rented_out'] == 1) {
                 // Check if todays date is between the rental period
@@ -115,7 +115,7 @@
                   }
                   // Set product availability to Available
                   $availability = "Available";
-                  $text_type = "text-muted";
+                  $text_type = "text-success";
                 }
                 else {
                   // If today is inside the rental period
