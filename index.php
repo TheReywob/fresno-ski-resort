@@ -73,7 +73,7 @@
                   $image = "helmets.jpg";
                   break;
                 case "Goggles":
-                  $image = "snowboardinggoggles.jpg";
+                  $image = "skiing.jpg";
                   break;
               }
               echo '<img src="images/'.$image.'" alt="'.$row['item_type'].'" width="100%" height="225">';
