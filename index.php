@@ -86,7 +86,7 @@
               // Card buttons
               echo '<div class="d-flex justify-content-between align-items-center">';
               echo '<div class="btn-group">';
-              echo '<a href="#" class="btn btn-sm btn-outline-primary">View</a>';
+              echo '<a href="#" class="btn btn-sm btn-outline-primary">Rent</a>';
               echo '</div>';
 
               // Product availability
