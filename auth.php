@@ -64,7 +64,7 @@
       }
       // Check user's password against DB stored password
       if ($password_check === $password) {
-        //header();
+        header('Location: admin_portal.php');
       } else {
         $error = true;
       }
