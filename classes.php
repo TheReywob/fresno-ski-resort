@@ -25,7 +25,7 @@
           <a class="nav-link active" href="classes.php">Classes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Admin Portal</a>
+          <a class="nav-link" href="auth.php">Admin Portal</a>
         </li>
       </ul>
     </div>
