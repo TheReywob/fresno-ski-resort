@@ -46,7 +46,7 @@
             require "connect.php";
 
             // Fetch all rentable items
-            $sql = "SELECT * FROM `class` INNER JOIN lesson ON class.less_id=lesson.less_id";
+            $sql = "SELECT * FROM `class` INNER JOIN lesson ON class.less_id=lesson.less_id LEFT JOIN instructor ON lesson.instr_id=instructor.instr_id";
             $result = $connect->query($sql);
             while ($row = $result->fetch_assoc()){
               $class_id = $row['class_id'];
@@ -61,10 +61,26 @@
               echo '<img src="images/'.$image.'" alt="'.$row['item_type'].'" width="100%" height="225">';
               // Card body
               echo '<div class="card-body">';
-              // Class type
-              echo '<h2>'.$row['item_brand'].' '.$row['item_model'].'</h2>';
+              /// Class type
+              // Check if class is private or public
+              if ($row['less_private'] == 1) {
+                // If class is 1-on-1
+                $private_lesson = "Private ";
+                $class_type = "1-on-1";
+              } else {
+                // If class is public
+                $private_lesson = "";
+                $class_type = "Public";
+              }
+              // Check if ski or snowboard lesson
+              if ($row['less_type'] == 1) {
+                $class_name = "Ski Lesson";
+              } else if ($row['less_type'] == 2) {
+                $class_name = "Snowboard Lesson";
+              }
+              echo '<h2>'.$private_lesson.' '.$class_name.'</h2>';
               // Class specifications
-              echo '<p class="card-text">Type: '.$row['item_type'].'<br>Color: '.$row['item_color'].'<br>Size: '.$row['item_size'].'</p>';
+              echo '<p class="card-text">Type: '.$class_type.'<br>Instructor: '.$row['item_color'].'<br>Duration: '.$row['less_duration'].' min<br>Time: '.$row['item_colorz'].'</p>';
               // Card buttons
               echo '<div class="d-flex justify-content-between align-items-center">';
               echo '<div class="btn-group">';
@@ -106,7 +122,7 @@
                 }
               }
 
-              echo '<small class="'.$text_type.'">'.$availability.'</small>';
+              echo '<small class="'.$text_type.'">1/1 slots available</small>';
               // Close product card
               echo '</div>';
               echo '</div>';
