@@ -134,7 +134,7 @@
               echo '</div>';
               echo '</div>';
             }
-
+            $connect -> close();
           ?>
 
   <!-- End Project Cards -->

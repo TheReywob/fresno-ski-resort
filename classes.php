@@ -100,8 +100,11 @@
               // Card buttons
               echo '<div class="d-flex justify-content-between align-items-center">';
               echo '<div class="btn-group">';
+              /// Join Class button
+              echo '<form action="join_class.php" method="post">';
               // Disable button if class is booked full
-              echo '<a href="#" class="btn btn-sm btn-outline-primary '.$disabled_status.'">Join Class</a>';
+              echo '<button type="submit" name="joinButton" value="'.$lesson_id.'" class="btn btn-sm btn-outline-primary '.$disabled_status.'">Join Class</button>';
+              echo '</form>';
               echo '</div>';
               // Print class availability
               echo '<small class="'.$text_type.'">'.$spots_available.'/'.$row['less_max_slots'].' slots available</small>';
@@ -111,7 +114,7 @@
               echo '</div>';
               echo '</div>';
             }
-
+            $connect -> close();
           ?>
 
   <!-- End Project Cards -->
