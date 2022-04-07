@@ -46,18 +46,17 @@
             require "connect.php";
 
             // Fetch all rentable items
-            $sql = "SELECT * FROM `class` INNER JOIN lesson ON class.less_id=lesson.less_id LEFT JOIN instructor ON lesson.instr_id=instructor.instr_id";
+            $sql = "SELECT * FROM lesson INNER JOIN instructor ON lesson.instr_id=instructor.instr_id ORDER BY less_date";
             $result = $connect->query($sql);
             while ($row = $result->fetch_assoc()){
-              $class_id = $row['class_id'];
+              $lesson_id = $row['less_id'];
               $image = "";
 
               // Create class card
               echo '<div class="col">';
               echo '<div class="card shadow-sm">';
               // Instructor picture
-              switch ($row['item_type']) {
-              }
+              // need to work on this!!!
               echo '<img src="images/'.$image.'" alt="'.$row['item_type'].'" width="100%" height="225">';
               // Card body
               echo '<div class="card-body">';
@@ -80,49 +79,32 @@
               }
               echo '<h2>'.$private_lesson.' '.$class_name.'</h2>';
               // Class specifications
-              echo '<p class="card-text">Type: '.$class_type.'<br>Instructor: '.$row['item_color'].'<br>Duration: '.$row['less_duration'].' min<br>Time: '.$row['item_colorz'].'</p>';
+              $class_time = date_create($row['less_date']);
+              echo '<p class="card-text">Type: '.$class_type.'<br>Instructor: '.$row['instr_fname'].' '.$row['instr_lname'].'<br>Duration: '.$row['less_duration'].' min<br>When: '.date_format($class_time, 'm/d/Y \a\t g:ia').'</p>';
+
+              /// Class spots available
+              // Count number of people currently in class
+              $spots_sql = "SELECT COUNT(less_id) FROM class WHERE less_id=$lesson_id";
+              $spots_result = $connect->query($spots_sql);
+              while ($spots_row = $spots_result->fetch_assoc()){
+                $spots_available = ($row['less_max_slots'] - $spots_row['COUNT(less_id)']);
+              }
+              // If no more spots available
+              if ($spots_available == 0) {
+                $text_type = "text-danger";
+                $disabled_status = "disabled";
+              } else {
+                $text_type = "text-success";
+                $disabled_status = "";
+              }
               // Card buttons
               echo '<div class="d-flex justify-content-between align-items-center">';
               echo '<div class="btn-group">';
-              echo '<a href="#" class="btn btn-sm btn-outline-primary">Join Class</a>';
+              // Disable button if class is booked full
+              echo '<a href="#" class="btn btn-sm btn-outline-primary '.$disabled_status.'">Join Class</a>';
               echo '</div>';
-
-              // Class spots available
-              if ($row['is_rented_out'] == 0) {
-                $availability = "Available";
-                $text_type = "text-success";
-              }
-              else if ($row['is_rented_out'] == 1) {
-                // Check if todays date is between the rental period
-                $today = date('Y-m-d');
-                $rent_start_date = $row['rental_startdate'];
-                $rent_end_date = $row['rental_enddate'];
-                if (!($today > $rent_start_date && $today < $rent_end_date)) {
-                  // If today is NOT inside the rental period
-                  // Change is_rented_out to false in DB table
-                  $update_sql = "UPDATE rentable_items SET is_rented_out=0 WHERE rentable_item_id=$item_id";
-                  // Verify update was successful
-                  if (!($connect->query($update_sql) === TRUE)) {
-                    echo "Error: " . $update_sql . "<br>" . $connect->error;
-                  }
-                  // Delete rental record
-                  $delete_sql = "DELETE FROM rental WHERE rentable_item_id=$item_id";
-                  // Verify deletion was successful
-                  if (!($connect->query($delete_sql) === TRUE)) {
-                    echo "Error: " . $delete_sql . "<br>" . $connect->error;
-                  }
-                  // Set product availability to Available
-                  $availability = "Available";
-                  $text_type = "text-success";
-                }
-                else {
-                  // If today is inside the rental period
-                  $availability = "Reserved until ".date("m/d/Y", strtotime($rent_end_date));
-                  $text_type = "text-danger";
-                }
-              }
-
-              echo '<small class="'.$text_type.'">1/1 slots available</small>';
+              // Print class availability
+              echo '<small class="'.$text_type.'">'.$spots_available.'/'.$row['less_max_slots'].' slots available</small>';
               // Close product card
               echo '</div>';
               echo '</div>';
