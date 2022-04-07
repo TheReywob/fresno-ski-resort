@@ -22,7 +22,7 @@
           <a class="nav-link" href="index.php">Rentals</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="lessons.php">Lessons</a>
+          <a class="nav-link active" href="classes.php">Classes</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Admin Portal</a>
@@ -34,7 +34,7 @@
 
   <!-- Begin Page Content -->
   <div class="container">
-  <h1>Lessons</h1>
+  <h1>Classes</h1>
 
   <!-- Begin Project Cards -->
   <div class="album py-5" style="margin-top:-55px">

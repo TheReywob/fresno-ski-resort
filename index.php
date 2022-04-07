@@ -22,7 +22,7 @@
           <a class="nav-link active" href="index.php">Rentals</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="lessons.php">Lessons</a>
+          <a class="nav-link" href="classes.php">Classes</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Admin Portal</a>
