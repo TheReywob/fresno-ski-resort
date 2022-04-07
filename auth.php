@@ -42,9 +42,42 @@
     <input type="text" id="uname" name="uname" required><br><br>
     <label for="pw">Password:</label>
     <input type="password" id="pw" name="pw" required><br><br>
-    <input type="submit" value="Continue">
+    <input type="submit" value="Log In">
   </form>
 
+  <?php
+    // Open connection to the database
+    require "connect.php";
+    // Check if username and password is set
+    if (isset($_POST['uname']) && isset($_POST['pw'])) {
+      // Authenticate username and password
+      $username = $_POST['uname'];
+      $password = $_POST['pw'];
+      $sql = "SELECT * FROM admin WHERE admin_un='$username'";
+      $result = $connect->query($sql);
+      // If username does not exist
+      if ($result->num_rows == 0){
+        $error = true;
+      }
+      while ($row = $result->fetch_assoc()){
+        $password_check = $row['admin_pw'];
+      }
+      // Check user's password against DB stored password
+      if ($password_check === $password) {
+        //header();
+      } else {
+        $error = true;
+      }
+      // If there was an error, print error message
+      if ($error === TRUE) {
+        echo '<small class="text-danger">Username or password was incorrect or does not exist.</small>';
+      }
+    }
+
+
+
+    $connect -> close();
+   ?>
 
 </div>
 <!-- End Page Content -->
