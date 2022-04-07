@@ -83,16 +83,11 @@
               echo '<h2>'.$row['item_brand'].' '.$row['item_model'].'</h2>';
               // Product specifications
               echo '<p class="card-text">Type: '.$row['item_type'].'<br>Color: '.$row['item_color'].'<br>Size: '.$row['item_size'].'</p>';
-              // Card buttons
-              echo '<div class="d-flex justify-content-between align-items-center">';
-              echo '<div class="btn-group">';
-              echo '<a href="#" class="btn btn-sm btn-outline-primary">Rent</a>';
-              echo '</div>';
-
               // Product availability
               if ($row['is_rented_out'] == 0) {
                 $availability = "Available";
                 $text_type = "text-success";
+                $disabled_status = "";
               }
               else if ($row['is_rented_out'] == 1) {
                 // Check if todays date is between the rental period
@@ -116,14 +111,22 @@
                   // Set product availability to Available
                   $availability = "Available";
                   $text_type = "text-success";
+                  $disabled_status = "";
                 }
                 else {
                   // If today is inside the rental period
                   $availability = "Reserved until ".date("m/d/Y", strtotime($rent_end_date));
                   $text_type = "text-danger";
+                  $disabled_status = "disabled";
                 }
               }
-
+              // Card buttons
+              echo '<div class="d-flex justify-content-between align-items-center">';
+              echo '<div class="btn-group">';
+              // Disable button if product is already rented out
+              echo '<a href="#" class="btn btn-sm btn-outline-primary '.$disabled_status.'">Rent</a>';
+              echo '</div>';
+              // Print availability
               echo '<small class="'.$text_type.'">'.$availability.'</small>';
               // Close product card
               echo '</div>';
