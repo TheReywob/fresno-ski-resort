@@ -46,32 +46,32 @@
             require "connect.php";
 
             // Fetch all rentable items
-            $sql = "SELECT * FROM rentable_items INNER JOIN item_types ON rentable_items.itemtype_id=item_types.itemtype_id LEFT JOIN rental ON rentable_items.rentable_item_id=rental.rentable_item_id ORDER BY is_rented_out, item_brand, item_model";
+            $sql = "SELECT * FROM `class` INNER JOIN lesson ON class.less_id=lesson.less_id";
             $result = $connect->query($sql);
             while ($row = $result->fetch_assoc()){
-              $item_id = $row['rentable_item_id'];
+              $class_id = $row['class_id'];
               $image = "";
 
-              // Create product card
+              // Create class card
               echo '<div class="col">';
               echo '<div class="card shadow-sm">';
-              // Product image
+              // Instructor picture
               switch ($row['item_type']) {
               }
               echo '<img src="images/'.$image.'" alt="'.$row['item_type'].'" width="100%" height="225">';
               // Card body
               echo '<div class="card-body">';
-              // Product name
+              // Class type
               echo '<h2>'.$row['item_brand'].' '.$row['item_model'].'</h2>';
-              // Product specifications
+              // Class specifications
               echo '<p class="card-text">Type: '.$row['item_type'].'<br>Color: '.$row['item_color'].'<br>Size: '.$row['item_size'].'</p>';
               // Card buttons
               echo '<div class="d-flex justify-content-between align-items-center">';
               echo '<div class="btn-group">';
-              echo '<a href="#" class="btn btn-sm btn-outline-primary">View</a>';
+              echo '<a href="#" class="btn btn-sm btn-outline-primary">Join Class</a>';
               echo '</div>';
 
-              // Product availability
+              // Class spots available
               if ($row['is_rented_out'] == 0) {
                 $availability = "Available";
                 $text_type = "text-success";
