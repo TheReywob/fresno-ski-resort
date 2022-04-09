@@ -123,8 +123,11 @@
               // Card buttons
               echo '<div class="d-flex justify-content-between align-items-center">';
               echo '<div class="btn-group">';
+              /// Rent button
+              echo '<form action="rent_item.php" method="post">';
               // Disable button if product is already rented out
-              echo '<a href="#" class="btn btn-sm btn-outline-primary '.$disabled_status.'">Rent</a>';
+              echo '<button type="submit" name="rentButton" value="'.$item_id.'" class="btn btn-sm btn-outline-primary '.$disabled_status.'">Rent</button>';
+              echo '</form>';
               echo '</div>';
               // Print availability
               echo '<small class="'.$text_type.'">'.$availability.'</small>';
