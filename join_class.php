@@ -35,6 +35,7 @@
   <!-- Begin Page Content -->
   <div class="container">
   <h1>Join Class</h1>
+  <hr>
 
   <form action="insert_join.php" method="post">
     <label for="fname">First Name:</label>
