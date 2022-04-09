@@ -40,6 +40,8 @@
   <form action="insert_join.php" method="post">
     <div class="row">
       <div class="col-sm">
+        <h5>Customer Info</h5>
+        <br>
         <label for="fname">First Name:</label>
         <input type="text" id="fname" name="fname" required><br><br>
         <label for="lname">Last Name:</label>
