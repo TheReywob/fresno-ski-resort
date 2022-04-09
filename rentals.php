@@ -46,7 +46,7 @@
             require "connect.php";
 
             // Fetch all rentable items
-            $sql = "SELECT * FROM rentable_items INNER JOIN item_types ON rentable_items.itemtype_id=item_types.itemtype_id LEFT JOIN rental ON rentable_items.rentable_item_id=rental.rentable_item_id ORDER BY is_rented_out, item_brand, item_model";
+            $sql = "SELECT rentable_items.rentable_item_id, item_brand, item_model, item_color, item_size, item_price, is_rented_out, item_type, rental_startdate, rental_enddate FROM rentable_items INNER JOIN item_types ON rentable_items.itemtype_id=item_types.itemtype_id LEFT JOIN rental ON rentable_items.rentable_item_id=rental.rentable_item_id ORDER BY is_rented_out, item_brand, item_model";
             $result = $connect->query($sql);
             while ($row = $result->fetch_assoc()){
               $item_id = $row['rentable_item_id'];
@@ -60,7 +60,7 @@
                 case "Skis":
                   $image = "skiing.jpg";
                   break;
-                case "Snowboards":
+                case "Snowboard":
                   $image = "snowboarding.jpg";
                   break;
                 case "Poles":
@@ -69,7 +69,7 @@
                 case "Boots":
                   $image = "ski_boots.jpg";
                   break;
-                case "Helmets":
+                case "Helmet":
                   $image = "helmets.jpg";
                   break;
                 case "Goggles":
@@ -82,7 +82,7 @@
               // Product name
               echo '<h2>'.$row['item_brand'].' '.$row['item_model'].'</h2>';
               // Product specifications
-              echo '<p class="card-text">Type: '.$row['item_type'].'<br>Color: '.$row['item_color'].'<br>Size: '.$row['item_size'].'</p>';
+              echo '<p class="card-text">Type: '.$row['item_type'].'<br>Color: '.$row['item_color'].'<br>Size: '.$row['item_size'].'<br>Price per Day: $'.$row['item_price'].'</p>';
               // Product availability
               if ($row['is_rented_out'] == 0) {
                 $availability = "Available";
