@@ -38,81 +38,124 @@
   <hr>
 
   <form action="insert_join.php" method="post">
-    <h5>Customer Info</h5>
-    <br>
-    <label for="fname">First Name:</label>
-    <input type="text" id="fname" name="fname" required><br><br>
-    <label for="lname">Last Name:</label>
-    <input type="text" id="lname" name="lname" required><br><br>
-    <label for="phone">Phone Number:</label>
-    <input type="text" id="phone" name="phone" required><br><br>
-    <label for="street">Street:</label>
-    <input type="text" id="street" name="street" required><br><br>
-    <label for="city">City:</label>
-    <input type="text" id="city" name="city" required><br><br>
-    <label for="state">State:</label>
-    <select id="state" name="state" required>
-      <option value="AL">Alabama</option>
-      <option value="AK">Alaska</option>
-      <option value="AZ">Arizona</option>
-      <option value="AR">Arkansas</option>
-      <option value="CA">California</option>
-      <option value="CO">Colorado</option>
-      <option value="CT">Connecticut</option>
-      <option value="DE">Delaware</option>
-      <option value="FL">Florida</option>
-      <option value="GA">Georgia</option>
-      <option value="HI">Hawaii</option>
-      <option value="ID">Idaho</option>
-      <option value="IL">Illinois</option>
-      <option value="IN">Indiana</option>
-      <option value="IA">Iowa</option>
-      <option value="KS">Kansas</option>
-      <option value="KY">Kentucky</option>
-      <option value="LA">Louisiana</option>
-      <option value="ME">Maine</option>
-      <option value="MD">Maryland</option>
-      <option value="MA">Massachusetts</option>
-      <option value="MI">Michigan</option>
-      <option value="MN">Minnesota</option>
-      <option value="MS">Mississippi</option>
-      <option value="MO">Montana</option>
-      <option value="NE">Nebraska</option>
-      <option value="NV">Nevada</option>
-      <option value="NH">New Hampshire</option>
-      <option value="NJ">New Jersey</option>
-      <option value="NM">New Mexico</option>
-      <option value="NY">New York</option>
-      <option value="NC">North Carolina</option>
-      <option value="ND">North Dakota</option>
-      <option value="OH">Ohio</option>
-      <option value="OK">Oklahoma</option>
-      <option value="OR">Oregon</option>
-      <option value="PA">Pennsylvania</option>
-      <option value="RI">Rhode Island</option>
-      <option value="SC">South Carolina</option>
-      <option value="SD">South Dakota</option>
-      <option value="TN">Tennessee</option>
-      <option value="TX">Texas</option>
-      <option value="UT">Utah</option>
-      <option value="VT">Vermont</option>
-      <option value="VA">Virginia</option>
-      <option value="WA">Washington</option>
-      <option value="WV">West Virginia</option>
-      <option value="WI">Wisconsin</option>
-      <option value="WY">Wyoming</option>
-    </select>
-    <br><br>
-    <label for="zip">ZIP:</label>
-    <input type="text" id="zip" name="zip" required><br><br>
-    <?php
-      // Store lesson id of lesson user clicked on
-      $lesson_id = $_POST['joinButton'];
-      echo '<input type="hidden" name="lesson_id" value="'.$lesson_id.'"';
-    ?>
-    <input type="reset">
-    <input type="submit" value="Join Class">
-  </form>
+    <div class="row">
+      <div class="col">
+        <h5>Customer Info</h5>
+        <br>
+        <label for="fname">First Name:</label>
+        <input type="text" id="fname" name="fname" required><br><br>
+        <label for="lname">Last Name:</label>
+        <input type="text" id="lname" name="lname" required><br><br>
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone" required><br><br>
+        <label for="street">Street:</label>
+        <input type="text" id="street" name="street" required><br><br>
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required><br><br>
+        <label for="state">State:</label>
+        <select id="state" name="state" required>
+          <option value="AL">Alabama</option>
+          <option value="AK">Alaska</option>
+          <option value="AZ">Arizona</option>
+          <option value="AR">Arkansas</option>
+          <option value="CA">California</option>
+          <option value="CO">Colorado</option>
+          <option value="CT">Connecticut</option>
+          <option value="DE">Delaware</option>
+          <option value="FL">Florida</option>
+          <option value="GA">Georgia</option>
+          <option value="HI">Hawaii</option>
+          <option value="ID">Idaho</option>
+          <option value="IL">Illinois</option>
+          <option value="IN">Indiana</option>
+          <option value="IA">Iowa</option>
+          <option value="KS">Kansas</option>
+          <option value="KY">Kentucky</option>
+          <option value="LA">Louisiana</option>
+          <option value="ME">Maine</option>
+          <option value="MD">Maryland</option>
+          <option value="MA">Massachusetts</option>
+          <option value="MI">Michigan</option>
+          <option value="MN">Minnesota</option>
+          <option value="MS">Mississippi</option>
+          <option value="MO">Montana</option>
+          <option value="NE">Nebraska</option>
+          <option value="NV">Nevada</option>
+          <option value="NH">New Hampshire</option>
+          <option value="NJ">New Jersey</option>
+          <option value="NM">New Mexico</option>
+          <option value="NY">New York</option>
+          <option value="NC">North Carolina</option>
+          <option value="ND">North Dakota</option>
+          <option value="OH">Ohio</option>
+          <option value="OK">Oklahoma</option>
+          <option value="OR">Oregon</option>
+          <option value="PA">Pennsylvania</option>
+          <option value="RI">Rhode Island</option>
+          <option value="SC">South Carolina</option>
+          <option value="SD">South Dakota</option>
+          <option value="TN">Tennessee</option>
+          <option value="TX">Texas</option>
+          <option value="UT">Utah</option>
+          <option value="VT">Vermont</option>
+          <option value="VA">Virginia</option>
+          <option value="WA">Washington</option>
+          <option value="WV">West Virginia</option>
+          <option value="WI">Wisconsin</option>
+          <option value="WY">Wyoming</option>
+        </select>
+        <br><br>
+        <label for="zip">ZIP:</label>
+        <input type="text" id="zip" name="zip" required><br><br>
+        <?php
+          // Store lesson id of lesson user clicked on
+          $lesson_id = $_POST['joinButton'];
+          echo '<input type="hidden" name="lesson_id" value="'.$lesson_id.'"';
+        ?>
+        <hr>
+        <button type="reset" class="btn btn-outline-secondary">Reset</button>
+        <button type="submit" class="btn btn-primary">Join Class</button>
+    </form>
+      </div>
+      <div class="col">
+        <h5>Class Details</h5>
+        <br>
+        <?php
+          // Open connection to the database
+          require "connect.php";
+          // Fetch all rentable items
+          $sql = "SELECT * FROM lesson INNER JOIN instructor ON lesson.instr_id=instructor.instr_id WHERE lesson.less_id=$lesson_id";
+          $result = $connect->query($sql);
+          while ($row = $result->fetch_assoc()){
+            /// Class type
+            // Check if class is private or public
+            if ($row['less_private'] == 1) {
+              // If class is 1-on-1
+              $private_lesson = "Private ";
+              $class_type = "1-on-1";
+            } else {
+              // If class is public
+              $private_lesson = "";
+              $class_type = "Public";
+            }
+            // Check if ski or snowboard lesson
+            if ($row['less_type'] == 1) {
+              $class_name = "Ski Lesson";
+            } else if ($row['less_type'] == 2) {
+              $class_name = "Snowboard Lesson";
+            }
+            echo '<h2>'.$private_lesson.' '.$class_name.'</h2>';
+            // Class specifications
+            $class_time = date_create($row['less_date']);
+            echo '<p class="card-text">Type: '.$class_type.'<br>Instructor: '.$row['instr_fname'].' '.$row['instr_lname'].'<br>Duration: '.$row['less_duration'].' min<br>When: '.date_format($class_time, 'm/d/Y \a\t g:ia').'</p>';
+          }
+          $connect -> close();
+        ?>
+      </div>
+    </div>
+
+
+
 
   </div>
   <!-- End Page Content -->
