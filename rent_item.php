@@ -39,7 +39,7 @@
 
   <form action="insert_join.php" method="post">
     <div class="row">
-      <div class="col-sm">
+      <div class="col">
         <h5>Customer Info</h5>
         <br>
         <label for="fname">First Name:</label>
@@ -108,22 +108,40 @@
         <label for="zip">ZIP:</label>
         <input type="text" id="zip" name="zip" required><br><br>
         <?php
-          // Store lesson id of lesson user clicked on
-          $lesson_id = $_POST['joinButton'];
-          echo '<input type="hidden" name="lesson_id" value="'.$lesson_id.'"';
+          // Store rentable_item id of item user clicked on
+          $item_id = $_POST['rentButton'];
+          echo '<input type="hidden" name="item_id" value="'.$item_id.'"';
         ?>
-        <input type="reset">
-        <input type="submit" value="Join Class">
-      </div>
-      <div class="col-sm">
-        <h5>Note: Your rental period cannot exceed 2 weeks.</h5>
-        <br>
         <!-- Start date - minimum date is today -->
         <label for="startDate">Rental Start Date:</label>
         <input type="date" id="startDate" name="startDate" min="<?=date("Y-m-d")?>" required><br><br>
         <!-- End date - maximum rental length is 2 weeks -->
-        <label for="endDate">Rental End Date:</label>
-        <input type="date" id="endDate" name="endDate" required>
+        <label for="endDate">Rental End Date*:</label>
+        <input type="date" id="endDate" name="endDate" min="<?=date("Y-m-d")?>" max="<?=date('Y-m-d', strtotime(date("Y-m-d").' + 14 days'))?>" required><br><br>
+        <button type="reset" class="btn btn-outline-secondary">Reset</button>
+        <button type="submit" class="btn btn-primary">Confirm Rental</button><br>
+        <small class="text-muted">*Your rental period cannot exceed 2 weeks.</small>
+      </div>
+      <div class="col">
+        <h5>Rental Details</h5>
+        <br>
+        <?php
+          // Open connection to the database
+          require "connect.php";
+          // Fetch all rentable items
+          $sql = "SELECT * FROM rentable_items INNER JOIN item_types ON rentable_items.itemtype_id=item_types.itemtype_id WHERE rentable_items.rentable_item_id=$item_id";
+          $result = $connect->query($sql);
+          var_dump($item_id);
+          var_dump($result);
+          while ($row = $result->fetch_assoc()){
+            var_dump($row);
+            // Product name
+            echo '<h2>'.$row['item_brand'].' '.$row['item_model'].'</h2>';
+            // Product specifications
+            echo '<p class="card-text">Type: '.$row['item_type'].'<br>Color: '.$row['item_color'].'<br>Size: '.$row['item_size'].'</p>';
+          }
+          $connect -> close();
+        ?>
       </div>
     </div>
   </form>
