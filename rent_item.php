@@ -116,11 +116,10 @@
         <label for="startDate">Rental Start Date:</label>
         <input type="date" id="startDate" name="startDate" min="<?=date("Y-m-d")?>" required><br><br>
         <!-- End date - maximum rental length is 2 weeks -->
-        <label for="endDate">Rental End Date*:</label>
-        <input type="date" id="endDate" name="endDate" min="<?=date("Y-m-d")?>" max="<?=date('Y-m-d', strtotime(date("Y-m-d").' + 14 days'))?>" required><br><br>
+        <label for="endDate">Rental End Date:</label>
+        <input type="date" id="endDate" name="endDate" min="<?=date("Y-m-d")?>" required><br><br>
         <button type="reset" class="btn btn-outline-secondary">Reset</button>
         <button type="submit" class="btn btn-primary">Confirm Rental</button><br>
-        <small class="text-muted">*Your rental period cannot exceed 2 weeks.</small>
       </div>
       <div class="col">
         <h5>Rental Details</h5>
@@ -131,14 +130,11 @@
           // Fetch all rentable items
           $sql = "SELECT * FROM rentable_items INNER JOIN item_types ON rentable_items.itemtype_id=item_types.itemtype_id WHERE rentable_items.rentable_item_id=$item_id";
           $result = $connect->query($sql);
-          var_dump($item_id);
-          var_dump($result);
           while ($row = $result->fetch_assoc()){
-            var_dump($row);
             // Product name
             echo '<h2>'.$row['item_brand'].' '.$row['item_model'].'</h2>';
             // Product specifications
-            echo '<p class="card-text">Type: '.$row['item_type'].'<br>Color: '.$row['item_color'].'<br>Size: '.$row['item_size'].'</p>';
+            echo '<p class="card-text">Type: '.$row['item_type'].'<br>Color: '.$row['item_color'].'<br>Size: '.$row['item_size'].'<br>Price per Day: $'.$row['item_price'].'</p>';
           }
           $connect -> close();
         ?>
