@@ -37,7 +37,7 @@
   <h1>Confirm your Rental</h1>
   <hr>
 
-  <form action="insert_join.php" method="post">
+  <form action="insert_rental.php" method="post">
     <div class="row">
       <div class="col">
         <h5>Customer Info</h5>
