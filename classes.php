@@ -50,7 +50,11 @@
             $result = $connect->query($sql);
             while ($row = $result->fetch_assoc()){
               $lesson_id = $row['less_id'];
-              $image = "";
+              if ($row['less_type'] == 1) {
+                $image = "skiing.jpg";
+              } else {
+                $image = "snowboarding.jpg";
+              }
 
               // Create class card
               echo '<div class="col">';
