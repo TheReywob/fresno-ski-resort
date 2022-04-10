@@ -94,7 +94,7 @@
                 $today = date('Y-m-d');
                 $rent_start_date = $row['rental_startdate'];
                 $rent_end_date = $row['rental_enddate'];
-                if (!($today > $rent_start_date && $today < $rent_end_date)) {
+                if (!($today >= $rent_start_date && $today <= $rent_end_date)) {
                   // If today is NOT inside the rental period
                   // Change is_rented_out to false in DB table
                   $update_sql = "UPDATE rentable_items SET is_rented_out=0 WHERE rentable_item_id=$item_id";
