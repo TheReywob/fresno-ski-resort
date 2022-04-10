@@ -45,15 +45,22 @@
             // Open connection to the database
             require "connect.php";
 
-            // Fetch all rentable items
+            // Fetch all lessons
             $sql = "SELECT * FROM lesson INNER JOIN instructor ON lesson.instr_id=instructor.instr_id ORDER BY less_date";
             $result = $connect->query($sql);
             while ($row = $result->fetch_assoc()){
               $lesson_id = $row['less_id'];
-              if ($row['less_type'] == 1) {
-                $image = "skiing.jpg";
-              } else {
-                $image = "snowboarding.jpg";
+              $instr_id = $row['instr_id'];
+              if ($row['instr_id'] == 1) {
+                $image = "ski_instr_1.jpg";
+              } else if ($row['instr_id'] == 3) {
+                $image = "snow_instr_1.jpg";
+              } else if ($row['instr_id'] == 4) {
+                $image = "snow_instr_2.jpg";
+              } else if ($row['instr_id'] == 5) {
+                $image = "ski_instr_2.jpg";
+              } else if ($row['instr_id'] == 6) {
+                $image = "ski_instr_3.jpg";
               }
 
               // Create class card
