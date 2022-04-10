@@ -26,7 +26,7 @@
           <a class="nav-link active" href="index.php">Rentals</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="lessons.php">Lessons</a>
+          <a class="nav-link" href="classes.php">Classes</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Admin Portal</a>
@@ -43,8 +43,8 @@
   <img src="images/homepage.png" alt="">
   <div class="container">
     <div class="buttons">
-      <a href="lessons.php">
-        <button id="lessons" type="button" name="button">Lessons</button>
+      <a href="classes.php">
+        <button id="lessons" type="button" name="button">Classes</button>
       </a>
       <a href="shop.php">
         <button id="shop" type="button" name="button">Shop</button>
