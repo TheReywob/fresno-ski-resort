@@ -36,6 +36,17 @@
   <div class="container">
   <h1>Rentals</h1>
 
+  <form action="#" method="post">
+    <label for="sort">Sort By:</label>
+    <select id="sort" name="sort" required>
+      <option value="brandAZ">Brand A-Z</option>
+      <option value="brandZA">Brand Z-A</option>
+      <option value="available">Available First</option>
+      <option value="unavailable">Unavailable First</option>
+    </select>
+    <button type="submit" class="btn btn-sm btn-outline-primary">Apply</button>
+  </form>
+
   <!-- Begin Project Cards -->
   <div class="album py-5" style="margin-top:-55px">
     <!--  <div class="container"> -->
@@ -45,8 +56,23 @@
             // Open connection to the database
             require "connect.php";
 
+            // Check SORTING preferences
+            if (isset($_POST['sort'])) {
+              if ($_POST['sort'] == "available") {
+                $order = "is_rented_out ASC";
+              } else if ($_POST['sort'] == "unavailable") {
+                $order = "is_rented_out DESC";
+              } else if ($_POST['sort'] == "brandAZ") {
+                $order = "item_brand ASC";
+              } else if ($_POST['sort'] == "brandZA") {
+                $order = "item_brand DESC";
+              }
+            } else {
+              $order = "rentable_item_id";
+            }
+
             // Fetch all rentable items
-            $sql = "SELECT rentable_items.rentable_item_id, item_brand, item_model, item_color, item_size, item_price, is_rented_out, item_type, rental_startdate, rental_enddate FROM rentable_items INNER JOIN item_types ON rentable_items.itemtype_id=item_types.itemtype_id LEFT JOIN rental ON rentable_items.rentable_item_id=rental.rentable_item_id ORDER BY is_rented_out, item_brand, item_model";
+            $sql = "SELECT rentable_items.rentable_item_id, item_brand, item_model, item_color, item_size, item_price, is_rented_out, item_type, rental_startdate, rental_enddate FROM rentable_items INNER JOIN item_types ON rentable_items.itemtype_id=item_types.itemtype_id LEFT JOIN rental ON rentable_items.rentable_item_id=rental.rentable_item_id ORDER BY $order";
             $result = $connect->query($sql);
             while ($row = $result->fetch_assoc()){
               $item_id = $row['rentable_item_id'];
