@@ -23,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarsExample02">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="index.php">Rentals</a>
+          <a class="nav-link" href="rentals.php">Rentals</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="classes.php">Classes</a>
