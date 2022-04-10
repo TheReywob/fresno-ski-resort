@@ -23,13 +23,13 @@
     <div class="collapse navbar-collapse" id="navbarsExample02">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link active" href="index.php">Rentals</a>
+          <a class="nav-link" href="index.php">Rentals</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="classes.php">Classes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Admin Portal</a>
+          <a class="nav-link" href="auth.php">Admin Portal</a>
         </li>
       </ul>
     </div>
@@ -44,10 +44,10 @@
   <div class="container">
     <div class="buttons">
       <a href="classes.php">
-        <button id="lessons" type="button" name="button">Classes</button>
+        <button id="lessons" type="button" name="button">Ski/Snowboard Lessons</button>
       </a>
-      <a href="shop.php">
-        <button id="shop" type="button" name="button">Shop</button>
+      <a href="rentals.php">
+        <button id="shop" type="button" name="button">Rental Shop</button>
       </a>
     </div>
   </div>
